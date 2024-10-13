@@ -5,19 +5,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const viewAllNewArrivals = document.getElementById('view-all-new-arrivals');
     const viewAllTopSelling = document.getElementById('view-all-top-selling');
 
+    // Initially show New Arrivals and hide Top Selling
+    topSellingSection.classList.add('hidden');
+    newArrivalsSection.classList.remove('hidden');
+
     viewAllNewArrivals.addEventListener('click', function () {
-        // Hide New Arrivals and show Top Selling
-        newArrivalsSection.classList.add('hidden');
-        topSellingSection.classList.remove('hidden');
+        // Show New Arrivals and hide Top Selling
+        newArrivalsSection.classList.remove('hidden');
+        topSellingSection.classList.add('hidden');
     });
 
     viewAllTopSelling.addEventListener('click', function () {
-        // Hide Top Selling and show New Arrivals
-        topSellingSection.classList.add('hidden');
-        newArrivalsSection.classList.remove('hidden');
+        // Show Top Selling and hide New Arrivals
+        topSellingSection.classList.remove('hidden');
+        newArrivalsSection.classList.add('hidden');
     });
 });
 
+// Full Product Lists (4 cards each)
 const productList = [
     {
         id: 1,
@@ -108,20 +113,21 @@ const topSelling = [
         category: "Shirt",
     },
     {
-    id: 2,
-    name: "Courage Graphic T-shirt",
-    newPrice: 145,
-    oldPrice: "",
-    oldDiv: "hidden",
-    discount: "",
-    discountdiv: "hidden",
-    rating: 3.5,
-    star1: "images/assets/Star.png",
-    star2: "images/assets/Star.png",
-    star3: "images/assets/Star.png",
-    star5: "images/assets/Halfstar.png",
-    image: "images/assets/Frame 33.jpg",
-    category: "T-Shirt", 
+        id: 2,
+        name: "Courage Graphic T-shirt",
+        newPrice: 145,
+        oldPrice: "",
+        oldDiv: "hidden",
+        discount: "",
+        discountdiv: "hidden",
+        rating: 3.5,
+        star1: "images/assets/Star.png",
+        star2: "images/assets/Star.png",
+        star3: "images/assets/Star.png",
+        star4: "images/assets/Halfstar.png",
+        star5: "",
+        image: "images/assets/Frame 33.jpg",
+        category: "T-Shirt", 
     },
     {
         id: 3,
@@ -156,9 +162,12 @@ const topSelling = [
         star5: "images/assets/Halfstar.png",
         image: "images/assets/Frame 38.jpg",
         category: "Skinny jeans", 
-    },
-]
-    let productMap = productList.map((product) => {
+    }
+];
+
+// Function to render products into the respective section
+function renderProducts(products, container) {
+    const productMap = products.map((product) => {
         return `
             <div class="product">
                 <img src="${product.image}" alt="${product.name}">
@@ -169,7 +178,7 @@ const topSelling = [
                         <img src="${product.star2}" alt="Star">
                         <img src="${product.star3}" alt="Star">
                         <img src="${product.star4}" alt="Star">
-                        <img src="${product.star5}" >
+                        <img src="${product.star5}">
                         <p>${product.rating}</p>
                     </div>
                     <p class="price">
@@ -179,37 +188,13 @@ const topSelling = [
                     </p>
                 </div>
             </div>
-        `
+        `;
     }).join('');
 
-    let listDiv = document.querySelector('.product-grid');
-    listDiv.innerHTML = productMap;
+    container.innerHTML = productMap;
+}
 
-    let topSellingMap = topSelling.map((product) => {
-        return `
-            <div class="product">
-                <img src="${product.image}" alt="${product.name}">
-                <div class="product-details">
-                    <h4>${product.name}</h4>
-                    <div class="rating">
-                        <img src="${product.star1}" alt="Star">
-                        <img src="${product.star2}" alt="Star">
-                        <img src="${product.star3}" alt="Star">
-                        <img src="${product.star4}" alt="">
-                        <img src="${product.star5}" >
-                        <p>${product.rating}</p>
-                    </div>
-                    <p class="price">
-                        $${product.newPrice} 
-                        <span class="old-price" ${product.oldDiv}>$${product.oldPrice}</span>
-                        <span class="btn-discount" ${product.discountdiv}>-${product.discount}%</span>
-                    </p>
-                </div>
-            </div>
-        `
-    }).join('');
-
-    let sellDiv = document.querySelector('.selling-grid');
+let sellDiv = document.querySelector('.selling-grid');
     sellDiv.innerHTML = topSellingMap;
 let btn = document.getElementById('view-all-new-arrivals');
 function viewAllArrivals() {
@@ -220,14 +205,13 @@ function viewAllArrivals() {
     card.appendChild(add);
 }
 btn.addEventListener('click', viewAllArrivals);
-
 let productDiv = document.querySelector('.new-grid')
 let btns = document.getElementById('view-all-top-selling');
 
 function viewAllTop() {
-    let card=document.querySelector('.card-display')
+    let card=document.querySelector('.card-outer')
     let add = document.createElement('div');
-    add.classList.add("view-all-inside");
+    add.classList.add("view-all-inner");
     add.innerHTML = productDiv.innerHTML;
     card.appendChild(add);
 }
