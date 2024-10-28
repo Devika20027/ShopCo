@@ -234,4 +234,31 @@ function viewAllTop() {
 btns.addEventListener('click', viewAllTop);
 
 
+// slider
+const leftArrow = document.querySelector('.left-arrow');
+    const rightArrow = document.querySelector('.right-arrow');
+    const carouselContainer = document.querySelector('.carousel-container');
+    const cards = document.querySelectorAll('.review-card');
+    let currentIndex = 0;
+
+    function updateCarousel() {
+        const cardWidth = cards[0].clientWidth + 20; // Add margin width
+        carouselContainer.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+
+    rightArrow.addEventListener('click', () => {
+        if (currentIndex < cards.length - 3) { // Prevent overflow
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+
+    leftArrow.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+
+    window.addEventListener('resize', updateCarousel);
 
