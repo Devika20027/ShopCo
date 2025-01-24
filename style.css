@@ -491,7 +491,14 @@ h5.style-heading {
     margin: 0;
 }
 
-
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden; 
+    width: 100%; /* Adjust this if needed */
+}
 .carousel-arrows {
     display: flex;
     gap: 10px; 
@@ -501,12 +508,12 @@ h5.style-heading {
 }
 
 .carousel-container {
-    overflow: hidden;
-    transition: transform 0.5s ease-in-out;
+    /* overflow: hidden; */
     display: flex;
     gap: 20px;
+    transition: transform 0.5s ease-in-out;
     overflow: hidden;
-    width: 100%; /
+    width: 100%;
 }
 
 .review-card {
@@ -514,9 +521,10 @@ h5.style-heading {
     border-radius: 20px;
     border: 1px solid #0000001A;
     padding: 28px 32px;
-    width: 400px; 
+    /* width: 400px;  */
     text-align: left;
-    /* flex: 0 0 33.33%; */
+    flex: 0 0 27.33%;
+    /* flex: 0 0 20%; */
 }
 
 .stars {
